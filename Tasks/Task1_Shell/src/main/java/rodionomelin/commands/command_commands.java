@@ -6,6 +6,9 @@ import rodionomelin.commandParser;
 public class command_commands implements Command {
     @Override
     public void exec(String... args) {
-        System.out.println("Доступные комманды:\n" + String.join(", \n", commandParser.getCommands()) + ".");
+        System.out.println("Доступные комманды:");
+        for (String command : commandParser.getCommands()) {
+            System.out.println(command);
+        }
     }
 }
