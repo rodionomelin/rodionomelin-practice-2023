@@ -17,7 +17,7 @@ public class FileParserImplementation implements FileParser {
     public List<String> parseFile(String filePath) {
         List<String> words = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(filePath)), StandardCharsets.UTF_8))) {
-            String line;
+            String line;//
             while ((line = reader.readLine()) != null) {
                 words.addAll(Arrays.asList(line.toLowerCase().split("\\s+")));
             }
