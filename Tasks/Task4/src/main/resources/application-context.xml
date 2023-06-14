@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="parser" class="rodionomelin.com.example.FileParserImplementation" />
+
+    <bean id="analyzer" class="rodionomelin.com.example.AnalyzerImplementation">
+        <property name="parser" ref="parser" />
+    </bean>
+
+    <bean id="reportBuilder" class="rodionomelin.com.example.ReportBuilderImplementation">
+        <property name="analyzer" ref="analyzer" />
+    </bean>
+
+</beans>
