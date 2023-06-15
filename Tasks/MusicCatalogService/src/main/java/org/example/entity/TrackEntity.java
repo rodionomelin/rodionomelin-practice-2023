@@ -1,15 +1,16 @@
-package com.example.musiclibrary.dto;
+package org.example.entity;
 
-import java.util.List;
+import java.time.Duration;
 
-public class Album {
+public class TrackEntity {
     private String id;
     private String name;
-    private List<Song> songs;
+    private Duration duration;
 
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -17,15 +18,16 @@ public class Album {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public List<Song> getSongs() {
-        return songs;
-    }
-    public void setSongs(List<Song> songs) {
-        this.songs = songs;
+    public Duration getDuration() {
+        return duration;
     }
 
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
 }
