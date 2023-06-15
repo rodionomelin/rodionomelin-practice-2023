@@ -5,7 +5,6 @@ public class Song {
     private String name;
     private String length;
 
-    // getters and setters
     public String getId() {
         return id;
     }
