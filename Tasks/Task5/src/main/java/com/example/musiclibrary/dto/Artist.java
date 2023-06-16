@@ -10,6 +10,7 @@ public class Artist {
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -17,6 +18,7 @@ public class Artist {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -24,16 +26,8 @@ public class Artist {
     public List<Album> getAlbums() {
         return albums;
     }
+
     public void setAlbums(List<Album> albums) {
         this.albums = albums;
-    }
-
-    @Override
-    public String toString() {
-        return "Artist{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", albums=" + albums +
-                '}';
     }
 }

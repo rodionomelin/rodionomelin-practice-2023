@@ -4,69 +4,72 @@ import com.example.musiclibrary.dto.Album;
 import com.example.musiclibrary.dto.Artist;
 import com.example.musiclibrary.dto.Song;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-
-@RestController
+@Controller
 public class MusicController {
 
     @Autowired
     private CatalogService catalogService;
 
     @GetMapping("/home")
-    public Collection<Artist> getAllArtists() {
-        return catalogService.getAllArtists();
-    }
-
-    @GetMapping("/artist/{artistId}")
-    public Artist getArtist(@PathVariable String artistId) {
-        return catalogService.getArtist(artistId);
+    public String getArtists(Model model) {
+        model.addAttribute("artists", catalogService.getAllArtists());
+        model.addAttribute("artist", new Artist());
+        return "artists";
     }
 
     @PostMapping("/artist")
-    public Artist createArtist(@RequestBody Artist artist) {
-        return catalogService.createArtist(artist);
+    public String createArtist(@ModelAttribute Artist artist) {
+        catalogService.createArtist(artist);
+        return "redirect:/home";
     }
 
-    @DeleteMapping("/artist/{artistId}")
-    public void deleteArtist(@PathVariable String artistId) {
-        catalogService.deleteArtist(artistId);
+    @GetMapping("/artist/{artistId}")
+    public String getArtist(@PathVariable String artistId, Model model) {
+        model.addAttribute("artist", catalogService.getArtist(artistId));
+        model.addAttribute("album", new Album());
+        return "artist";
     }
 
     @PostMapping("/artist/{artistId}/album")
-    public Album createAlbum(@PathVariable String artistId, @RequestBody Album album) {
-        return catalogService.createAlbum(artistId, album);
+    public String createAlbum(@PathVariable String artistId, @ModelAttribute Album album) {
+        catalogService.createAlbum(artistId, album);
+        return "redirect:/artist/" + artistId;
     }
 
     @GetMapping("/artist/{artistId}/album/{albumId}")
-    public Album getAlbum(@PathVariable String artistId, @PathVariable String albumId) {
-        return catalogService.getAlbum(artistId, albumId);
-    }
+    public String getAlbum(Model model, @PathVariable String artistId, @PathVariable String albumId) {
+        Artist artist = catalogService.getArtist(artistId);
+        Album album = catalogService.getAlbum(artistId, albumId);
+        Song song = new Song();
 
-    @DeleteMapping("/artist/{artistId}/album/{albumId}")
-    public void deleteAlbum(@PathVariable String artistId, @PathVariable String albumId) {
-        catalogService.deleteAlbum(artistId, albumId);
+        model.addAttribute("artist", artist);
+        model.addAttribute("album", album);
+        model.addAttribute("song", song);
+
+        return "album";
     }
 
     @PostMapping("/artist/{artistId}/album/{albumId}/song")
-    public Song createSong(@PathVariable String artistId,
-                           @PathVariable String albumId,
-                           @RequestBody Song song) {
-        return catalogService.createSong(artistId, albumId, song);
+    public String createSong(@PathVariable String artistId, @PathVariable String albumId, @ModelAttribute Song song) {
+        catalogService.createSong(artistId, albumId, song);
+        return "redirect:/artist/" + artistId + "/album/" + albumId;
     }
 
     @GetMapping("/artist/{artistId}/album/{albumId}/song/{songId}")
-    public Song getSong(@PathVariable String artistId,
-                        @PathVariable String albumId,
-                        @PathVariable String songId) {
-        return catalogService.getSong(artistId, albumId, songId);
-    }
-
-    @DeleteMapping("/artist/{artistId}/album/{albumId}/song/{songId}")
-    public void deleteSong(@PathVariable String artistId,
-                           @PathVariable String albumId,
-                           @PathVariable String songId) {
-        catalogService.deleteSong(artistId, albumId, songId);
+    public String getSong(@PathVariable String artistId,
+                          @PathVariable String albumId,
+                          @PathVariable String songId,
+                          Model model) {
+        Artist artist = catalogService.getArtist(artistId);
+        Album album = catalogService.getAlbum(artistId, albumId);
+        Song song = catalogService.getSong(artistId, albumId, songId);
+        model.addAttribute("artist", artist);
+        model.addAttribute("album", album);
+        model.addAttribute("song", song);
+        return "song";
     }
 }

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h1>Song</h1>
+
+<p>ID: <span th:text="${song.id}"></span></p>
+<p>Name: <span th:text="${song.name}"></span></p>
+<p>Length: <span th:text="${song.length}"></span></p>
+
+<a th:href="@{/artist/{artistId}/album/{albumId}(artistId=${artist.id}, albumId=${album.id})}">Back to Album</a>
+<a href="/home">Back to Artists</a>
+</body>
+</html>
+

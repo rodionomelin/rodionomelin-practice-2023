@@ -10,6 +10,7 @@ public class Album {
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -17,6 +18,7 @@ public class Album {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -24,8 +26,8 @@ public class Album {
     public List<Song> getSongs() {
         return songs;
     }
+
     public void setSongs(List<Song> songs) {
         this.songs = songs;
     }
-
 }
