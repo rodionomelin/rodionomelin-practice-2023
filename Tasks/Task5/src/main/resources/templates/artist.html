@@ -12,6 +12,10 @@
 <ul>
   <li th:each="album : ${artist.albums}">
     <a th:href="@{/artist/{artistId}/album/{albumId}(artistId=${artist.id}, albumId=${album.id})}" th:text="${album.name}"></a>
+    <form th:action="@{/artist/{artistId}/album/{albumId}(artistId=${artist.id}, albumId=${album.id})}" method="post" style="display: inline;">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="Delete">
+    </form>
   </li>
 </ul>
 

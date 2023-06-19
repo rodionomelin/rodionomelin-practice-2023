@@ -72,4 +72,22 @@ public class MusicController {
         model.addAttribute("song", song);
         return "song";
     }
+
+    @PostMapping("/artist/{artistId}")
+    public String deleteArtist(@PathVariable String artistId) {
+        catalogService.deleteArtist(artistId);
+        return "redirect:/home";
+    }
+
+    @PostMapping("/artist/{artistId}/album/{albumId}")
+    public String deleteAlbum(@PathVariable String artistId, @PathVariable String albumId) {
+        catalogService.deleteAlbum(artistId, albumId);
+        return "redirect:/artist/" + artistId;
+    }
+
+    @PostMapping("/artist/{artistId}/album/{albumId}/song/{songId}")
+    public String deleteSong(@PathVariable String artistId, @PathVariable String albumId, @PathVariable String songId) {
+        catalogService.deleteSong(artistId, albumId, songId);
+        return "redirect:/artist/" + artistId + "/album/" + albumId;
+    }
 }

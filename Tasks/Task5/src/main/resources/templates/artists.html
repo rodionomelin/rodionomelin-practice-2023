@@ -13,6 +13,10 @@
 <ul>
   <li th:each="artist : ${artists}">
     <a th:href="@{/artist/{artistId}(artistId=${artist.id})}" th:text="${artist.name}"></a>
+    <form th:action="@{/artist/{artistId}(artistId=${artist.id})}" method="post" style="display: inline;">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="Delete">
+    </form>
   </li>
 </ul>
 
